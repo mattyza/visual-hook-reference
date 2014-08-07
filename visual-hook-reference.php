@@ -3,8 +3,8 @@
 Plugin Name: Visual Hook Reference
 Plugin URI: http://matty.co.za/
 Description: A visual hook reference for displaying where various action hooks are executed.
-Version: 1.0.0
-Author: Matty
+Version: 1.0.1
+Author: Matty, mirkolofio
 Author URI: http://matty.co.za/
 License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 */
@@ -27,8 +27,11 @@ License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2
     if ( ! defined( 'ABSPATH' ) ) exit;
 
     if ( is_admin() && ( 'plugins.php' == $pagenow ) ) {} else {
-        global $visual_hook_reference;
-        $visual_hook_reference = new Visual_Hook_Reference();
+        function create_vhr_instance(){
+            global $visual_hook_reference;
+            $visual_hook_reference = new Visual_Hook_Reference();
+        }
+        add_action( 'plugins_loaded', 'create_vhr_instance' );
     }
 
 	class Visual_Hook_Reference {
